@@ -24,7 +24,8 @@ class StringGen extends Component {
     let self = this;
     let genButton = 'Loading...'
     let genStatus = 'Loading...'
-    self.setState({genButton, genStatus})
+    let showLink = false
+    self.setState({genButton, genStatus, showLink})
     fetch('http://localhost:5000/generate')
     .then(res => res.json())
     .then(json => {
