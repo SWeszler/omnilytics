@@ -23,3 +23,4 @@ services:
       - "3000:3000"
     volumes:
       - ./client:/client
+    command: bash -c "cd client/omnilytics && yarn start"

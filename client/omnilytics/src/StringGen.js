@@ -7,15 +7,17 @@ class StringGen extends Component {
     this.state = {
       myString: 'hello...'
     }
+    this.generateString = this.generateString.bind(this)
   }
 
   generateString() {
+    let self = this;
     fetch('http://localhost:5000/')
-		.then(res => res.json())
-		.then(json => {
-			const myString = json.sequence;
-			this.setState({myString});
-		});
+    .then(res => res.json())
+    .then(json => {
+    	const myString = json.sequence;
+    	self.setState({myString});
+    });
   }
 
   render() {

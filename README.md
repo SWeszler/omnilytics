@@ -13,8 +13,9 @@ Note: The backend API must be written using Flask (Python) or Express frameworks
 
 
 ## Dovelopment environment:
-- run Flask API on port 8000
-- run ReactJS server with NodeJS container on port 9000
+
+- run Flask API on port 5000
+- run ReactJS server with NodeJS container on port 3000
 
 ## Getting Started
 - first time run:
@@ -22,12 +23,6 @@ docker-compose up --build
 once docker image is built, you only need:
 docker-compose up
 to start containers
-- run front-end app:
-attach nodejs container:
-go to project folder:
-cd client/omnilytics
-execute:
-yarn start
 
 
 
