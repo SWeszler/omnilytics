@@ -17,7 +17,9 @@ services:
   nodejs:
     image: node:12.14.1
     tty: true
+    expose:
+      - "3000"
     ports:
-      - "8000:8000"
+      - "3000:3000"
     volumes:
       - ./client:/client
