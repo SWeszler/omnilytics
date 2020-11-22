@@ -16,14 +16,11 @@ The output is 2MB in size. Once file generation is done the output is visible as
 ## Dovelopment environment:
 
 - run Flask API on port 5000
-- run ReactJS server with NodeJS container on port 3000
+- run ReactJS server with NodeJS container on port 3000 [http://localhost:3000](http://localhost:3000)
 
 ## Getting Started
-- first time run:
-```
-docker-compose up --build
-```
-- once docker image is built, you only need:
+
+Start Docker containers:
 ```
 docker-compose up
 ```

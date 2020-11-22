@@ -24,3 +24,23 @@ body {
 .App-link {
   color: #61dafb;
 }
+
+.App-button {
+  background-color: #fff;
+  border-color: #dbdbdb;
+  border-width: 1px;
+  color: #363636;
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: calc(.5em - 1px);
+  padding-top: calc(.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 290486px;
+  padding-left: calc(1em + .25em);
+  padding-right: calc(1em + .25em);
+}
+
+.App-button:focus {
+  outline: 0;
+}

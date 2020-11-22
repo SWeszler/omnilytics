@@ -27,18 +27,19 @@ def generate_sequence():
     import random
     import string
     import copy
+    import time
     
     max_length = 2*10**6
     sequence = ''
     types = ['a', 'r', 'i', 'an']
     report = copy.deepcopy(REPORT)
 
-    while len(sequence.encode('utf-8')) <= max_length:
+    while len(sequence) <= max_length:
         word_type = random.choice(types)
-        length = random.choice(range(1, 30))
+        length = random.choice(range(2, 30))
 
-        if length > max_length - len(sequence.encode('utf-8')):
-            length = max_length - len(sequence.encode('utf-8'))
+        if length > max_length - len(sequence):
+            length = max_length - len(sequence)
 
         if word_type == 'a':
             word_type = string.ascii_lowercase
@@ -57,7 +58,7 @@ def generate_sequence():
 
         sequence += ''.join([random.choice(word_type) for i in range(length)]) + ','
 
-    return sequence[:len(sequence) - 2], report
+    return sequence[:-1], report
 
 
 def save_sequence(sequence):

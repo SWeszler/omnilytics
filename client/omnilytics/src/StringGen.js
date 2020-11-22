@@ -5,7 +5,6 @@ class StringGen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      genButton: 'Generate',
       genStatus: 'Ready...',
       downloadURL: 'http://localhost:5000/download',
       report: {
@@ -14,7 +13,8 @@ class StringGen extends Component {
         integer: 0,
         alphanumeric: 0
       },
-      showLink: false
+      showLink: false,
+      showReport: false
     }
     this.generateString = this.generateString.bind(this)
     this.getReport = this.getReport.bind(this)
@@ -22,17 +22,16 @@ class StringGen extends Component {
 
   generateString() {
     let self = this;
-    let genButton = 'Loading...'
     let genStatus = 'Loading...'
     let showLink = false
-    self.setState({genButton, genStatus, showLink})
+    let showReport = false
+    self.setState({genStatus, showLink, showReport})
     fetch('http://localhost:5000/generate')
     .then(res => res.json())
     .then(json => {
       genStatus = json.status
       let showLink = true
-      genButton = 'Generate'
-    	self.setState({genStatus, genButton, showLink});
+    	self.setState({genStatus, showLink, showReport});
     });
   }
 
@@ -41,8 +40,9 @@ class StringGen extends Component {
     fetch('http://localhost:5000/report')
     .then(res => res.json())
     .then(json => {
-      let report = json.data;
-    	self.setState({report});
+      let report = json.data
+      let showReport = true
+    	self.setState({report, showReport});
     });
   }
 
@@ -50,23 +50,27 @@ class StringGen extends Component {
     return (
       <div>
         <div>
-          <button disabled={this.state.genButton === 'Loading...'} onClick={this.generateString}>{this.state.genButton}</button>
+          <button className="App-button" disabled={this.state.genStatus === 'Loading...'} onClick={this.generateString}>Generate</button>
         </div>
         <p>
           <span>{this.state.genStatus}</span>
         </p>
         { this.state.showLink ? 
-        <p>
-          <a className="App-link" href={this.state.downloadURL}>{this.state.downloadURL}</a>
-        </p> 
-        : null }
         <div>
-          <button onClick={this.getReport}>Report</button>
-        </div>
-        <p>Alphabetical: {this.state.report.alphabetical}</p>
-        <p>Real Number: {this.state.report.real_number}</p>
-        <p>Integer: {this.state.report.integer}</p>
-        <p>Alphanumeric: {this.state.report.alphanumeric}</p>
+          <a className="App-link" href={this.state.downloadURL}>{this.state.downloadURL}</a>
+          <p>
+            <button className="App-button" onClick={this.getReport}>Report</button>
+          </p>
+        </div> 
+        : null }
+        { this.state.showReport ? 
+        <div>
+          <p>Alphabetical: {this.state.report.alphabetical}</p>
+          <p>Real Number: {this.state.report.real_number}</p>
+          <p>Integer: {this.state.report.integer}</p>
+          <p>Alphanumeric: {this.state.report.alphanumeric}</p>
+        </div> 
+        : null }
       </div>
     );
   }

@@ -7,9 +7,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1>
+        <h2>
           Generate Strings
-        </h1>
+        </h2>
       </header>
       <StringGen></StringGen>
     </div>
