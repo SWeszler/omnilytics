@@ -10,6 +10,7 @@ services:
       - "5000:5000"
     volumes:
       - ./server:/server
+      - ./data:/data
     env_file:
       - ./server/.env
     command: flask run
