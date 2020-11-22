@@ -5,18 +5,42 @@ class StringGen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      myString: 'hello...'
+      genButton: 'Generate',
+      genStatus: 'Ready...',
+      downloadURL: 'http://localhost:5000/download',
+      report: {
+        alphabetical: 0,
+        real_number: 0,
+        integer: 0,
+        alphanumeric: 0
+      },
+      showLink: false
     }
     this.generateString = this.generateString.bind(this)
+    this.getReport = this.getReport.bind(this)
   }
 
   generateString() {
     let self = this;
-    fetch('http://localhost:5000/')
+    let genButton = 'Loading...'
+    self.setState({genButton})
+    fetch('http://localhost:5000/generate')
     .then(res => res.json())
     .then(json => {
-    	const myString = json.sequence;
-    	self.setState({myString});
+      let genStatus = json.status
+      let showLink = true
+      genButton = 'Generate'
+    	self.setState({genStatus, genButton, showLink});
+    });
+  }
+
+  getReport() {
+    let self = this;
+    fetch('http://localhost:5000/report')
+    .then(res => res.json())
+    .then(json => {
+      let report = json.data;
+    	self.setState({report});
     });
   }
 
@@ -24,11 +48,23 @@ class StringGen extends Component {
     return (
       <div>
         <div>
-          <button onClick={this.generateString}>Generate</button>
+          <button disabled={this.state.genButton === 'Loading...'} onClick={this.generateString}>{this.state.genButton}</button>
         </div>
+        <p>
+          <span>{this.state.genStatus}</span>
+        </p>
+        { this.state.showLink ? 
+        <p>
+          <a href={this.state.downloadURL}>{this.state.downloadURL}</a>
+        </p> 
+        : null }
         <div>
-          <span>{this.state.myString}</span>
+          <button onClick={this.getReport}>Report</button>
         </div>
+        <p>Alphabetical: {this.state.report.alphabetical}</p>
+        <p>Real Number: {this.state.report.real_number}</p>
+        <p>Integer: {this.state.report.integer}</p>
+        <p>Alphanumeric: {this.state.report.alphanumeric}</p>
       </div>
     );
   }

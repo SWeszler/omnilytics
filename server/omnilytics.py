@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file
 from flask_cors import CORS
 import json
 import settings
@@ -8,7 +8,8 @@ from utils import (
     generate_sequence,
     save_sequence,
     save_report,
-    get_report
+    get_report,
+    get_output_path
 )
 
 app = Flask(__name__)
@@ -16,7 +17,7 @@ CORS(app)
 init_storage()
 
 
-@app.route('/generate/')
+@app.route('/generate')
 def generate():
     sequence, report = generate_sequence()
     save_sequence(sequence)
@@ -25,7 +26,7 @@ def generate():
     return jsonify({'status': 'success', 'data': sequence})
 
 
-@app.route('/report/')
+@app.route('/report')
 def report():
     response = {
         'status': 'success',
@@ -33,3 +34,8 @@ def report():
     }
 
     return jsonify(response)
+
+
+@app.route('/download')
+def download():
+    return send_file(get_output_path(), as_attachment=True)
