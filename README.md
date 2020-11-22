@@ -1,6 +1,7 @@
 # Flask and ReactJS
 
-Web app using React.js to generate four (4) types of printable random objects and store them in a single file, each object is separated by a ",".  These are the 4 objects: alphabetical strings, real numbers, integers, alphanumerics.
+Web app using Flask and React.js to generate four (4) types of printable random objects and store them in a single file, each object is separated by a ",".  
+These are the 4 objects: alphabetical strings, real numbers, integers, alphanumerics.  
 Sample extracted output:
 
 ```
@@ -9,7 +10,7 @@ lizierdjfklaasf,123192u3kjwekhf,89181811238,122,
 nmarcysfa900jkifh,3.781,2.11,....
 ```
 
-The output is 2MB in size. Once file generation is done the output is visible as a link which can be then downloaded by clicking on it. Also, there is a button on the page such that by clicking on this button the total number of each random object will be displayed.
+The output is 2MB in size. Once file generation is done the output is visible as a link which can be then downloaded by clicking on it. Also, there is a button on the page such that by clicking on this button the total number of each random objects will be displayed.
 
 
 ## Dovelopment environment:
