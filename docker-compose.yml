@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    restart: always
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/server
+    env_file:
+      - ./server/.env
+    command: flask run
+
+  nodejs:
+    image: node:12.14.1
+    tty: true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./client:/client
