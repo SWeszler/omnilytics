@@ -23,11 +23,12 @@ class StringGen extends Component {
   generateString() {
     let self = this;
     let genButton = 'Loading...'
-    self.setState({genButton})
+    let genStatus = 'Loading...'
+    self.setState({genButton, genStatus})
     fetch('http://localhost:5000/generate')
     .then(res => res.json())
     .then(json => {
-      let genStatus = json.status
+      genStatus = json.status
       let showLink = true
       genButton = 'Generate'
     	self.setState({genStatus, genButton, showLink});
@@ -55,7 +56,7 @@ class StringGen extends Component {
         </p>
         { this.state.showLink ? 
         <p>
-          <a href={this.state.downloadURL}>{this.state.downloadURL}</a>
+          <a className="App-link" href={this.state.downloadURL}>{this.state.downloadURL}</a>
         </p> 
         : null }
         <div>
