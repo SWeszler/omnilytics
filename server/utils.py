@@ -1,42 +1,29 @@
 import json
 import os
 import settings
-
-REPORT = {
-    'alphabetical': 0,
-    'real_number': 0,
-    'integer': 0,
-    'alphanumeric': 0
-}
-
-def init_storage():
-    report_path = os.path.join(settings.DATA_DIR, 'report.json')
-
-    if not os.path.exists(report_path):
-        with open(report_path, mode="w") as file:
-            file.write(json.dumps(REPORT))
-
-    output_path = os.path.join(settings.DATA_DIR, 'output.txt')
-
-    if not os.path.exists(output_path):
-        with open(output_path, mode="w") as file:
-            file.write()
+import time
 
 
 def generate_sequence():
     import random
     import string
-    import copy
     import time
     
     max_length = 2*10**6
     sequence = ''
     types = ['a', 'r', 'i', 'an']
-    report = copy.deepcopy(REPORT)
+    total_count = 0
+    report = {
+        'alphabetical': 0,
+        'real_number': 0,
+        'integer': 0,
+        'alphanumeric': 0
+    }
 
     while len(sequence) <= max_length:
         word_type = random.choice(types)
         length = random.choice(range(2, 30))
+        total_count += 1
 
         if length > max_length - len(sequence):
             length = max_length - len(sequence)
@@ -48,7 +35,7 @@ def generate_sequence():
             sequence += str(random.uniform(1, length))[:length] + ','
             report['real_number'] += 1
             continue
-        elif word_type == 'i':
+        elif word_type == 'i' and (report['integer'] / total_count) <= 0.2:
             sequence += str(random.randint(1, length))[:length] + ','
             report['integer'] += 1
             continue
@@ -61,23 +48,23 @@ def generate_sequence():
     return sequence[:-1], report
 
 
-def save_sequence(sequence):
-    with open(os.path.join(settings.DATA_DIR, 'output.txt'), mode='w') as file:
+def save_sequence(sequence, timestamp):
+    with open(os.path.join(settings.DATA_DIR, 'output_{}.txt'.format(timestamp)), mode='w') as file:
         file.write(sequence)
 
 
-def save_report(report):
-    with open(os.path.join(settings.DATA_DIR, 'report.json'), mode='w') as file:
+def save_report(report, timestamp):
+    with open(os.path.join(settings.DATA_DIR, 'report_{}.json'.format(timestamp)), mode='w') as file:
         file.write(json.dumps(report))
 
 
-def get_report():
+def get_report(timestamp):
     result = None
-    with open(os.path.join(settings.DATA_DIR, 'report.json'), 'r') as file:
+    with open(os.path.join(settings.DATA_DIR, 'report_{}.json'.format(timestamp)), 'r') as file:
         result = json.loads(file.read())
 
     return result
 
 
-def get_output_path():
-    return os.path.join(settings.DATA_DIR, 'output.txt')
+def get_output(timestamp):
+    return os.path.join(settings.DATA_DIR, 'output_{}.txt'.format(timestamp))

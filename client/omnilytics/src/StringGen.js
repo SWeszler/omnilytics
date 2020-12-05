@@ -1,12 +1,14 @@
 import { Component } from 'react';
 import './App.css';
 
+const API_URL = 'http://localhost:5000/'
+
 class StringGen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       genStatus: 'Ready...',
-      downloadURL: 'http://localhost:5000/download',
+      downloadURL: API_URL + 'download/',
       report: {
         alphabetical: 0,
         real_number: 0,
@@ -25,19 +27,21 @@ class StringGen extends Component {
     let genStatus = 'Loading...'
     let showLink = false
     let showReport = false
-    self.setState({genStatus, showLink, showReport})
-    fetch('http://localhost:5000/generate')
+    let timeStamp = Date.now()
+    self.setState({genStatus, showLink, showReport, timeStamp})
+    fetch(API_URL + 'generate/' + timeStamp)
     .then(res => res.json())
     .then(json => {
       genStatus = json.status
       let showLink = true
-    	self.setState({genStatus, showLink, showReport});
+      let downloadURL = self.state.downloadURL + self.state.timeStamp
+    	self.setState({genStatus, showLink, showReport, downloadURL});
     });
   }
 
   getReport() {
     let self = this;
-    fetch('http://localhost:5000/report')
+    fetch(API_URL + 'report/' + self.state.timeStamp)
     .then(res => res.json())
     .then(json => {
       let report = json.data
