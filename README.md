@@ -25,5 +25,11 @@ Start Docker containers:
 docker-compose up
 ```
 
+## Unit Tests
+
+Attach Web container and run:
+```
+pytest
+```
 
 

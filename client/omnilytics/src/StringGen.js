@@ -7,8 +7,7 @@ class StringGen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      genStatus: 'Ready...',
-      downloadURL: API_URL + 'download/',
+      genStatus: 'Ready, click "Generate"!',
       report: {
         alphabetical: 0,
         real_number: 0,
@@ -34,7 +33,7 @@ class StringGen extends Component {
     .then(json => {
       genStatus = json.status
       let showLink = true
-      let downloadURL = self.state.downloadURL + self.state.timeStamp
+      let downloadURL = API_URL + '/download/' + self.state.timeStamp
     	self.setState({genStatus, showLink, showReport, downloadURL});
     });
   }

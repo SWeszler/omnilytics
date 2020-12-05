@@ -19,13 +19,13 @@ def generate(timestamp):
     save_sequence(sequence, timestamp=timestamp)
     save_report(report, timestamp=timestamp)
 
-    return jsonify({'status': 'success', 'data': sequence})
+    return jsonify({'status': 'Success.', 'data': sequence})
 
 
 @app.route('/report/<timestamp>')
 def report(timestamp):
     response = {
-        'status': 'success',
+        'status': 'Success.',
         'data': get_report(timestamp)
     }
 
